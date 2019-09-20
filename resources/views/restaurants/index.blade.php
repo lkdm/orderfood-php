@@ -10,7 +10,7 @@
     @if ($restaurants)
         <ul>
         @foreach($restaurants as $restaurant)
-            <a href='restaurant/{{$restaurant->id}}'>
+            <a href='{{url('restaurant/'.$restaurant->id)}}'>
             <li>
             {{$restaurant->name}}
             </li>

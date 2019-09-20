@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Dish extends Model
 {
     function restaurant() {
-        return $this->belongsTo('App\User');
+        // Specify user_id as the foreign key
+        return $this->belongsTo('App\User', 'user_id');
     }
     function order() {
-        return $this->belongsTo('App\Order');
+        // TODO: Test that this works.
+        return $this->hasMany('App\Order');
     }
 }

@@ -103,6 +103,7 @@ class DishController extends Controller
     public function show($id)
     {
         $dish = Dish::find($id);
+        
         return view('dishes.show')->with('dish', $dish);
     }
 

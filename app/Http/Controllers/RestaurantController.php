@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Dish;
 
 class RestaurantController extends Controller
 {
@@ -24,8 +25,8 @@ class RestaurantController extends Controller
      */
     public function show($id)
     {
-        $restaurant = User::find($id)->hasWith(dishes);
-        // Find dishes by restaurant ID $dishes = Dish::find($id);
-        return view('restaurants.show')->with('dish', $dish);
+        $restaurant = User::find($id);
+        $dishes = Dish::all()->where('user_id', '=', $id);
+        return view('restaurants.show')->with('restaurant', $restaurant)->with('dishes', $dishes);
     }
 }
