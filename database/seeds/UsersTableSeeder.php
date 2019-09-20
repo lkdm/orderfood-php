@@ -11,20 +11,50 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        // Insert some customers
         DB::table('users')->insert([
             'name' => 'Bob',
             'email' => 'bob@gmail.com',
-            'password' => bcrypt('123456')
+            'password' => bcrypt('123456'),
+            'address' => '123 Bob\'s House, Surfers Paradise, 4217.',
+            'role' => 'customer'
         ]);
         DB::table('users')->insert([
             'name' => 'Fred',
             'email' => 'fred@gmail.com',
-            'password' => bcrypt('123456')
+            'password' => bcrypt('123456'),
+            'address' => '123 Fred\'s House, Southport, 4214.',
+            'role' => 'customer'
         ]);
         DB::table('users')->insert([
             'name' => 'Alice',
-            'email' => 'alice@icloud.com',
-            'password' => bcrypt('123456')
+            'email' => 'alice@gmail.com',
+            'password' => bcrypt('123456'),
+            'address' => '123 Alice\'s House, Kingdom of Italy, 9999.',
+            'role' => 'customer'
+        ]);
+
+        // Insert some restaurants
+        DB::table('users')->insert([
+            'name' => 'Fathead Fred\'s Fried Flathead',
+            'email' => 'fred.restaurant@gmail.com',
+            'password' => bcrypt('123456'),
+            'address' => '33 Restaurant Lane, Rooservelt Island, 5555',
+            'role' => 'restaurant'
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Beefy Bill\'s Broiled Beefsicles',
+            'email' => 'bill.restaurant@gmail.com',
+            'password' => bcrypt('123456'),
+            'address' => '54-99 Restaurant Lane, Rooservelt Island, 5555',
+            'role' => 'restaurant'
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Slow Sally\'s Slow-cooked Silverfish',
+            'email' => 'sally.restaurant@gmail.com',
+            'password' => bcrypt('123456'),
+            'address' => '3 Cafe Parlour, Fort Knox, 6666',
+            'role' => 'restaurant'
         ]);
     }
 }

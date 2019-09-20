@@ -14,13 +14,19 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
+            /*
+             *  Create Users table
+             *  Users can be restaurants or customers
+             *  Or "administrator"
+             */
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            # Address is not unique, because more than one customer may live at an address
             $table->string('address');
+            // Roles: "administrator", "restaurant", or "customer"
+            $table->string('role');
             $table->rememberToken();
             $table->timestamps();
         });

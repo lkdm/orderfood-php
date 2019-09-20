@@ -12,14 +12,18 @@
 */
 
 // Products
-Route::resource('product', 'ProductController');
+Route::resource('dish', 'DishController');
 
 // Redirect to the product page
 Route::get('/', function () {
-    return redirect("product");
+    return redirect("dish");
 });
 
 use App\Product;
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
