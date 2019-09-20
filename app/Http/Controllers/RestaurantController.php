@@ -13,19 +13,19 @@ class RestaurantController extends Controller
     public function index()
     {
         // Only retrieve restaurants with dishes
-        $restaurants = User::has('dishes')
-            ->with('dishes')->get();
-        dd($restaurants);
+        $restaurants = User::has('dishes')->with('dishes')->get();
+        return view('restaurants.index')->with('restaurants', $restaurants);
     }
     /**
-     * Display the dish
+     * Display the restaurant
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $dish = Dish::find($id);
-        return view('dishes.show')->with('dish', $dish);
+        $restaurant = User::find($id)->hasWith(dishes);
+        // Find dishes by restaurant ID $dishes = Dish::find($id);
+        return view('restaurants.show')->with('dish', $dish);
     }
 }
