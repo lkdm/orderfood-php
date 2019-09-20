@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Dish;
 use App\User;
+use Auth;
 
 class DishController extends Controller
 {
@@ -39,6 +40,7 @@ class DishController extends Controller
     public function create()
     {
         //
+        return view('dishes.create');
     }
 
     /**
@@ -49,7 +51,30 @@ class DishController extends Controller
      */
     public function store(Request $request)
     {
+        /*
+         *  Creates a new dish
+         *  Accepts a maximum of 2MB for photo
+         */
+
+        // Guards: Input validation
+        $this->validate($request, [
+            'name'=>'required|max:255',
+            'price'=>'required|numeric|digits_between:0,9999',
+            'photo'=>'required|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        $dish = new Dish();
+        $dish->name = $request->name;
+        $dish->price = $request->price;
+        $dish->photo = $request->photo;
+        $dish->approved = 0;
+        // Restaurant ID is the User ID, because restaurants are a type of user.
+        // TODO: Check that user, restaurant exists, first.
         // TODO: Check for unique name
+        $dish->restaurant_id = Auth::user()->id;
+        $dish->save();
+        return redirect("dish/$dish->id");
+
     }
 
     /**

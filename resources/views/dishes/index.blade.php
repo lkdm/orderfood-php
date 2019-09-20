@@ -10,7 +10,7 @@
     @guest
     <p>Please log in to edit this product.</p>
     @else
-    <p><a href={{url('dishes/create')}}>Create new</a></p>
+    <p><a href={{url('dish/create')}}>Create new</a></p>
     @endif
     @if ($dishes)
         <ul>

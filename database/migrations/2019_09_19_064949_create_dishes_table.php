@@ -24,6 +24,7 @@ class CreateDishesTable extends Migration
             $table->float('price');
             $table->string('photo');
             $table->boolean('approved');
+            $table->timestamps();
         });
     }
 
