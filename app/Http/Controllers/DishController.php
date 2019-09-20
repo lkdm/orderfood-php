@@ -74,7 +74,7 @@ class DishController extends Controller
         ]);
 
         // Guard: Check for unique name
-        $similar = Dish::whereRaw('Name LIKE ? AND restaurant_id = ?', array($request->name, $restaurant_id))->count();
+        $similar = Dish::whereRaw('Name LIKE ? AND user_id = ?', array($request->name, $restaurant_id))->count();
         if ($similar != 0) {
             $error = \Illuminate\Validation\ValidationException::withMessages([
                 'name' => ['You already have a dish with the same name in your restaurant.']
@@ -88,7 +88,7 @@ class DishController extends Controller
         $dish->price = $request->price;
         $dish->photo = $request->photo;
         $dish->approved = 0;
-        $dish->restaurant_id = $restaurant_id;
+        $dish->user_id = $restaurant_id;
 
         $dish->save();
         return redirect("dish/$dish->id");
@@ -148,7 +148,7 @@ class DishController extends Controller
         ]);
 
         // Guard: Make sure name is unique, with the exception of the dish currently being updated.
-        $similar = Dish::whereRaw('Name LIKE ? AND restaurant_id = ? AND id != ?', array($request->name, $restaurant_id, $id))->count();
+        $similar = Dish::whereRaw('Name LIKE ? AND user_id = ? AND id != ?', array($request->name, $restaurant_id, $id))->count();
         if ($similar != 0) {
             $error = \Illuminate\Validation\ValidationException::withMessages([
                 'name' => ['You already have a dish with the same name in your restaurant.']

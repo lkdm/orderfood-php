@@ -16,10 +16,9 @@ class CreateDishesTable extends Migration
         Schema::create('dishes', function (Blueprint $table) {
             /*
              *  Create Dishes table
-             * - restaurant_id refers to the ID of the user with role "restaurant"
              */
             $table->bigIncrements('id');
-            $table->integer('restaurant_id');
+            $table->integer('user_id');
             $table->string('name');
             $table->float('price');
             $table->string('photo');

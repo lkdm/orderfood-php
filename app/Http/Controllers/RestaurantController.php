@@ -12,7 +12,7 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        // $restaurants = User::all()->where('role', '=', 'restaurant');
+        // Only retrieve restaurants with dishes
         $restaurants = User::has('dishes')
             ->with('dishes')->get();
         dd($restaurants);
