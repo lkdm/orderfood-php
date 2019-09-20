@@ -39,7 +39,11 @@ class DishController extends Controller
      */
     public function create()
     {
-        //
+        // Guard: Only restaurants can create new dishes.
+        if (Auth::user()->role != "restaurant") {
+            return redirect('/');
+        }
+
         return view('dishes.create');
     }
 
@@ -56,6 +60,11 @@ class DishController extends Controller
          *  Accepts a maximum of 2MB for photo
          */
 
+        // Guard: Only restaurants can create new dishes.
+        if (Auth::user()->role != "restaurant") {
+            return redirect('/');
+        }
+
         // Guards: Input validation
         $this->validate($request, [
             'name'=>'required|max:255',
@@ -68,8 +77,6 @@ class DishController extends Controller
         $dish->price = $request->price;
         $dish->photo = $request->photo;
         $dish->approved = 0;
-        // Restaurant ID is the User ID, because restaurants are a type of user.
-        // TODO: Check that user, restaurant exists, first.
         // TODO: Check for unique name
         $dish->restaurant_id = Auth::user()->id;
         $dish->save();
