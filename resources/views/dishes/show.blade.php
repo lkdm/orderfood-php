@@ -12,17 +12,26 @@
         <p>{{$dish->restaurant->address}}</p>
 
         @guest
-            Please log in to edit this product.
+            Please log in to order this product.
         @else
-            <p><a href='{{url("dish/$dish->id/edit")}}'>Edit</a></p>
-        <p>
-            <form method="POST" action="{{url("dish/$dish->id")}}">
-                {{csrf_field()}}
-                {{ method_field('DELETE') }}
-                <input type=submit value=Delete />
-            </form>
-
-        </p>
+            @if ( Auth::user()->role == 'restaurant')
+                <p><a href='{{url("dish/$dish->id/edit")}}'>Edit</a></p>
+                <p>
+                <form method="POST" action="{{url("dish/$dish->id")}}">
+                    {{csrf_field()}}
+                    {{ method_field('DELETE') }}
+                    <input type=submit value=Delete />
+                </form>
+                </p>
+            @elseif ( Auth::user()->role == 'administrator')
+                Approve | Disaprove
+            @else
+                <form method="POST" action="{{url("order/add/$dish->id")}}">
+                    {{csrf_field()}}
+                    {{-- {{ method_field('aaaa') }} --}}
+                    <input type=submit value=Order />
+                </form>
+            @endif
         @endguest
     @else
         No item found

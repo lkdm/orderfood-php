@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Dish;
-// User is used to get Restaurant details
 use App\User;
 
 class DishController extends Controller
@@ -19,17 +18,21 @@ class DishController extends Controller
         // Add exceptions to middleware
         // TODO: Add different permissions for customer and restaurant
         $this->middleware('auth', ['except' => [
-            'index'
+            'index', 'show'
         ]]);
     }
     public function index()
     {
-        // TODO: Add with "approved = True"
-        $dishes = Dish::all();
+        // TODO: Add pagination to view
+
+        // TODO: Get count of all orders
+        // TODO: Order by Order qty
+
+        $dishes = Dish::where('approved', 'LIKE', 1)->orderBy('name')->simplePaginate(5);
         return view('dishes.index')->with('dishes', $dishes);
     }
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a dish
      *
      * @return \Illuminate\Http\Response
      */
@@ -39,34 +42,30 @@ class DishController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created dish in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        // TODO: Check for unique name
     }
 
     /**
-     * Display the specified resource.
+     * Display the dish
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        // Show the dish
         $dish = Dish::find($id);
-        // TODO: This is probably working correctly without this line. It's probably to do with your seeder.
-        // $dish->restaurant = User::find($dish->restaurant_id);
-        // dd($dish);
         return view('dishes.show')->with('dish', $dish);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the dish
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -77,7 +76,7 @@ class DishController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the dish
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -89,7 +88,7 @@ class DishController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the dish
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
