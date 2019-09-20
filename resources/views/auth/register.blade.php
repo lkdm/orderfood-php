@@ -81,18 +81,8 @@
 
                         <div class="form-group row">
                             <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
-
                             <div class="col-md-6">
-                                <input id="role" type="role" class="form-control @error('role') is-invalid @enderror" name="role" value="{{ old('role') }}" required autocomplete="address">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div> 
-                            <div class="col-md-6">
-                                <select name="role">
+                                <select name="role" class="form-control @error('address') is-invalid @enderror">
                                     @foreach ($roles as $role)
                                         @if($role == old('role'))
                                             <option value="{{ $role }}" selected=selected>{{ $role }}</option>
@@ -102,7 +92,7 @@
                                     @endforeach
                                 </select>
                                 @error('role')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror

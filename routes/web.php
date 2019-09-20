@@ -19,11 +19,15 @@ Route::get('/', function () {
     return redirect("dish");
 });
 
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+
 use App\Product;
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+/*
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home'); */
