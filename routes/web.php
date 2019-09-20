@@ -13,6 +13,7 @@
 
 // Products
 Route::resource('dish', 'DishController');
+Route::resource('restaurant', 'RestaurantController');
 
 // Redirect to the product page
 Route::get('/', function () {
