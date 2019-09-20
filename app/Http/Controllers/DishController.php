@@ -69,7 +69,7 @@ class DishController extends Controller
         // Guards: Input validation
         $this->validate($request, [
             'name'=>'required|min:8|max:255',
-            'price'=>'required|numeric|digits_between:0,9999',
+            'price'=>'required|numeric|between:0,99.99',
             'photo'=>'required|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
@@ -119,7 +119,9 @@ class DishController extends Controller
             return redirect('/');
         }
 
-        return view('dishes.edit');
+        $dish = Dish::findOrFail($id);
+
+        return view('dishes.edit')->with('dish', $dish);
     }
 
     /**
@@ -141,12 +143,12 @@ class DishController extends Controller
         // Guards: Input validation
         $this->validate($request, [
             'name'=>'required|min:8|max:255',
-            'price'=>'required|numeric|digits_between:0,9999',
-            'photo'=>'required|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'price'=>'required|numeric|between:0,99.99',
+            'photo'=>'mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        // Guard: Check for unique name
-        $similar = Dish::whereRaw('Name LIKE ? AND restaurant_id = ?', array($request->name, $restaurant_id))->count();
+        // Guard: Make sure name is unique, with the exception of the dish currently being updated.
+        $similar = Dish::whereRaw('Name LIKE ? AND restaurant_id = ? AND id != ?', array($request->name, $restaurant_id, $id))->count();
         if ($similar != 0) {
             $error = \Illuminate\Validation\ValidationException::withMessages([
                 'name' => ['You already have a dish with the same name in your restaurant.']
@@ -158,14 +160,18 @@ class DishController extends Controller
         $dish = Dish::findOrFail($id);
         $dish->name = $request->name;
         $dish->price = $request->price;
-        $dish->photo = $request->photo;
+
+        if (!empty($request->photo)) {
+            // If they supplied a new photo, change it.
+            $dish->photo = $request->photo;
+        } else {
+            // If they did not, use the old one.
+            $dish->photo = Dish::find($id)->photo;
+        }
 
         // For the sake of development, updates are automatically approved.
         // TODO: Upon production release, change this to 0.
         $dish->approved = 1;
-
-        // Updating the restaurant_ID should never be necessary.
-        // $dish->restaurant_id = $restaurant_id;
 
         $dish->save();
         return redirect("dish/$dish->id");
