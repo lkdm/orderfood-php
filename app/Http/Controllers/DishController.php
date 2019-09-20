@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Dish;
+// User is used to get Restaurant details
+use App\User;
 
 class DishController extends Controller
 {
@@ -16,7 +19,7 @@ class DishController extends Controller
         // Add exceptions to middleware
         // TODO: Add different permissions for customer and restaurant
         $this->middleware('auth', ['except' => [
-            'create', 'store', 'edit', 'update', 'destroy'
+            'index'
         ]]);
     }
     public function index()
@@ -25,7 +28,6 @@ class DishController extends Controller
         $dishes = Dish::all();
         return view('dishes.index')->with('dishes', $dishes);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -55,7 +57,12 @@ class DishController extends Controller
      */
     public function show($id)
     {
-        //
+        // Show the dish
+        $dish = Dish::find($id);
+        // TODO: This is probably working correctly without this line. It's probably to do with your seeder.
+        // $dish->restaurant = User::find($dish->restaurant_id);
+        // dd($dish);
+        return view('dishes.show')->with('dish', $dish);
     }
 
     /**

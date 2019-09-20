@@ -34,7 +34,7 @@ class UsersTableSeeder extends Seeder
             'role' => 'customer'
         ]);
 
-        // Insert some restaurants
+        // Insert some restaurants (4, 5, 6)
         DB::table('users')->insert([
             'name' => 'Fathead Fred\'s Fried Flathead',
             'email' => 'fred.restaurant@gmail.com',

@@ -1,21 +1,22 @@
 @extends('layouts.app')
 
 @section('title')
-    Product Properties
+    Dish
 @endsection
 
 @section('content')
-    @if ($product)
-        <h2>{{$product->name}}</h2>
-        <p>{{$product->price}}</p>
-        <p>{{$product->manufacturer->name}}</p>
+    @if ($dish)
+        <h2>{{$dish->name}}</h2>
+        <p>{{$dish->price}}</p>
+        <p>{{$dish->restaurant->name}}</p>
+        <p>{{$dish->restaurant->address}}</p>
 
         @guest
             Please log in to edit this product.
         @else
-            <p><a href='{{url("product/$product->id/edit")}}'>Edit</a></p>
+            <p><a href='{{url("dish/$dish->id/edit")}}'>Edit</a></p>
         <p>
-            <form method="POST" action="{{url("product/$product->id")}}">
+            <form method="POST" action="{{url("dish/$dish->id")}}">
                 {{csrf_field()}}
                 {{ method_field('DELETE') }}
                 <input type=submit value=Delete />

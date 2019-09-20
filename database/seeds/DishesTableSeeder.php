@@ -13,21 +13,21 @@ class DishesTableSeeder extends Seeder
     {
         // Insert Flat Head Fred's dishes
         DB::table('dishes')->insert([
-            'restaurant_id' => 1,
+            'restaurant_id' => 4,
             'name' => 'The Fat-Free Fatstack',
             'price' => 14.99,
             'photo' => 'fathead-stack.png',
             'approved' => TRUE
         ]);
         DB::table('dishes')->insert([
-            'restaurant_id' => 1,
+            'restaurant_id' => 4,
             'name' => 'Flathead Rounders',
             'price' => 9.99,
             'photo' => 'flathead-rounders.png',
             'approved' => TRUE
         ]);
         DB::table('dishes')->insert([
-            'restaurant_id' => 1,
+            'restaurant_id' => 4,
             'name' => 'Fathead\'s Potato Thins',
             'price' => 4.99,
             'photo' => 'flathead-chips.png',
@@ -35,21 +35,21 @@ class DishesTableSeeder extends Seeder
         ]);
         // Insert Beefy Bill's dishes
         DB::table('dishes')->insert([
-            'restaurant_id' => 2,
+            'restaurant_id' => 5,
             'name' => 'Vegan Steak (made from 100% real vegan cow)',
             'price' => 32.97,
             'photo' => 'beefy-steak.png',
             'approved' => TRUE
         ]);
         DB::table('dishes')->insert([
-            'restaurant_id' => 2,
+            'restaurant_id' => 5,
             'name' => 'Area 51 Steak (made from 100% real alien)',
             'price' => 199.97,
             'photo' => 'beefy-area51.png',
             'approved' => FALSE
         ]);
         DB::table('dishes')->insert([
-            'restaurant_id' => 2,
+            'restaurant_id' => 5,
             'name' => 'The "not steak" Steak',
             'price' => 0.99,
             'photo' => 'notsteak.png',

@@ -1,22 +1,23 @@
 @extends('layouts.app')
 
 @section('title')
-    Products List
+    Dishes list
 @endsection
 
 @section('content')
-    <h2>Products</h2>
+    <h2>Featured dishes</h2>
+    <p>These dishes are the five most popular in the last week.</p>
     @guest
     <p>Please log in to edit this product.</p>
     @else
-    <p><a href={{url('product/create')}}>Create new</a></p>
+    <p><a href={{url('dishes/create')}}>Create new</a></p>
     @endif
-    @if ($products)
+    @if ($dishes)
         <ul>
-        @foreach($products as $product)
-            <a href='product/{{$product->id}}'>
+        @foreach($dishes as $dish)
+            <a href='dish/{{$dish->id}}'>
             <li>
-            {{$product->name}}
+            {{$dish->name}}
             </li>
             </a>
         @endforeach
