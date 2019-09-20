@@ -56,5 +56,21 @@ class UsersTableSeeder extends Seeder
             'address' => '3 Cafe Parlour, Fort Knox, 6666',
             'role' => 'restaurant'
         ]);
+        DB::table('users')->insert([
+            'name' => 'Sabu\'s Salami Sizzle',
+            'email' => 'sabu.restaurant@gmail.com',
+            'password' => bcrypt('123456'),
+            'address' => '123, Near Kebab Rd, 4444',
+            'role' => 'restaurant'
+        ]);
+
+        // Make an admimnistrator
+        DB::table('users')->insert([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => bcrypt('123456'),
+            'address' => '777 My House Rd, Station Area, 555.',
+            'role' => 'administrator'
+        ]);
     }
 }
